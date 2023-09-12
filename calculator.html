@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .calculator-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin: 20px auto;
+        }
+
+        .input-field {
+            margin: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .calculate-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .calculate-button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Media query for responsiveness */
+        @media (max-width: 480px) {
+            .calculator-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <div class="calculator-container">
+        <input class="input-field" type="number" id="num1" placeholder="Enter number 1">
+        <input class="input-field" type="number" id="num2" placeholder="Enter number 2">
+        <select class="input-field" id="operation">
+            <option value="add">Add</option>
+            <option value="subtract">Subtract</option>
+            <option value="multiply">Multiply</option>
+            <option value="divide">Divide</option>
+        </select>
+        <button class="calculate-button" onclick="calculate()">Calculate</button>
+        <p class="result" id="result"></p>
+    </div>
+
+    <script>
+        // Define a class Calculator
+        class Calculator {
+            add(a, b) {
+                return a + b;
+            }
+
+            subtract(a, b) {
+                return a - b;
+            }
+
+            multiply(a, b) {
+                return a * b;
+            }
+
+            divide(a, b) {
+                if (b === 0) {
+                    throw new Error("Division by zero is not allowed.");
+                }
+                return a / b;
+            }
+        }
+
+        // Function to perform calculations based on user input
+        function calculate() {
+            const num1 = parseFloat(document.getElementById("num1").value);
+            const num2 = parseFloat(document.getElementById("num2").value);
+            const operation = document.getElementById("operation").value;
+            const resultElement = document.getElementById("result");
+            
+            const calculator = new Calculator();
+
+            try {
+                let result;
+                switch (operation) {
+                    case "add":
+                        result = calculator.add(num1, num2);
+                        break;
+                    case "subtract":
+                        result = calculator.subtract(num1, num2);
+                        break;
+                    case "multiply":
+                        result = calculator.multiply(num1, num2);
+                        break;
+                    case "divide":
+                        result = calculator.divide(num1, num2);
+                        break;
+                    default:
+                        throw new Error("Invalid operation selected.");
+                }
+                resultElement.textContent = `Result: ${result}`;
+            } catch (error) {
+                resultElement.textContent = `Error: ${error.message}`;
+            } finally {
+            }
+        }
+    </script>
+</body>
+</html>
